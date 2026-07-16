@@ -17,6 +17,7 @@ A collection of mods and tutorials to enhance your GTBike V experience.
   - [Step 8 — Install GTBikeV](#step-8--install-gtbikev-and-its-scripthook-components)
   - [Step 9 — Launch GTBikeV](#step-9--launch-gtbikev)
 - [Troubleshooting](#troubleshooting)
+- [Known Issues](#known-issues)
 - [Compatibility and Known Conflicts](#compatibility-and-known-conflicts)
 - [Recommended Extra Mods](#recommended-extra-mods)
   - [100% Game Save](#100-game-save-by-direzephyr)
@@ -217,6 +218,40 @@ If you find any, move them to a backup folder outside GTA V. Do not delete them.
 ### GTA V was updated
 
 Steam updates and file verification can replace the downgraded executable and mod files. Repeat the depot copy in [Step 4](#Step 4 — Download and apply the compatible depot), then rerun the GTBikeV installer from [Step 8](Step 8 — Install GTBikeV and its ScriptHook components) if its files were replaced.
+
+## Known Issues
+
+### Strava user lookup fails
+
+GTBikeV's automatic Strava account-linking page may fail while looking up the Strava user. If the lookup does not complete or reports that the user cannot be found, use GTBikeV's FIT-file export and upload the activity manually instead.
+
+#### Save the activity in GTBikeV
+
+1. At the end of the ride, stop pedalling and wait until the activity computer shows zero speed.
+2. Press **F5** to open the GTBikeV menu.
+3. Select **End and save current activity**. Do not choose the option that discards the activity.
+4. GTBikeV will create a `.fit` file in:
+
+   ```text
+   Documents\Rockstar Games\GTA V\Activities
+   ```
+
+   If Windows redirects Documents through OneDrive, check:
+
+   ```text
+   OneDrive\Documents\Rockstar Games\GTA V\Activities
+   ```
+
+#### Upload the FIT file manually to Strava
+
+1. Sign in to [Strava](https://www.strava.com/).
+2. Open Strava's [file upload page](https://www.strava.com/upload/select). You can also select the **+** icon, then **Upload activity → File**.
+3. Select **Choose files**.
+4. Open the `Activities` folder shown above and select the `.fit` file for the completed ride. Use the file's date and time to identify the correct one.
+5. Wait for Strava to process the file.
+6. Review the activity details, make any desired changes, and select **Save & view**.
+
+The manual upload contains the recorded ride data; automatic Strava linking is not required. Keep the FIT file until the activity appears correctly in your Strava account, and do not upload the same file twice because that can create a duplicate activity.
 
 ## Compatibility and Known Conflicts
 
