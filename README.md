@@ -20,6 +20,7 @@ A collection of mods and tutorials to enhance your GTBike V experience.
 - [Important Keys](#important-keys)
 - [Troubleshooting](#troubleshooting)
 - [Known Issues](#known-issues)
+  - [Strava Upload Helper](#strava-upload-helper)
 - [Compatibility and Known Conflicts](#compatibility-and-known-conflicts)
 - [Recommended Extra Mods](#recommended-extra-mods)
   - [100% Game Save](#100-game-save-by-direzephyr)
@@ -320,6 +321,54 @@ GTBikeV's automatic Strava account-linking page may fail while looking up the St
 6. Review the activity details, make any desired changes, and select **Save & view**.
 
 The manual upload contains the recorded ride data; automatic Strava linking is not required. Keep the FIT file until the activity appears correctly in your Strava account, and do not upload the same file twice because that can create a duplicate activity.
+
+### Strava Upload Helper
+
+This repository includes an experimental Windows helper that finds the newest GTBikeV FIT file, reads its actual ride times, finds screenshots created during the same time window, and uploads them through Strava's website:
+
+```text
+tools\run_strava_uploader.ps1
+```
+
+It uses a dedicated Microsoft Edge profile and does not read or copy passwords from another browser. On the first run, sign in to Strava in the Edge window it opens. That sign-in is retained in the tool's private profile for later uploads.
+
+#### First-time requirements
+
+1. Install [Python 3 for Windows](https://www.python.org/downloads/windows/) if it is not already installed. Enable the Python launcher during installation.
+2. Keep Microsoft Edge installed. Selenium uses Edge to operate Strava's signed-in website.
+3. Right-click the Windows Start button and open **Terminal** or **PowerShell**.
+4. Change to the cloned collection folder, then run:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\tools\run_strava_uploader.ps1 --dry-run
+   ```
+
+   The first run creates a private Python environment under `tools\.venv` and installs the packages listed in `tools\requirements.txt`. `--dry-run` only prints the FIT file, ride times, and matching screenshots; it does not open Strava.
+
+#### Upload the latest ride
+
+1. End and save the activity from GTBikeV.
+2. Close GTA V or wait until it has finished writing the FIT file and screenshots.
+3. From the collection folder, run:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\tools\run_strava_uploader.ps1
+   ```
+
+4. If Edge asks you to sign in to Strava, complete the sign-in in that window. The helper will continue when Strava reaches its upload page.
+5. Review the resulting activity and photos in Strava. If Strava has changed its web-page controls, the helper leaves Edge open and tells you to complete the remaining photo or save step manually.
+
+Useful options:
+
+| Option | Purpose |
+| --- | --- |
+| `--dry-run` | Shows which FIT file and screenshots would be used without uploading anything. |
+| `--fit "C:\path\ride.fit"` | Uploads a particular FIT file instead of the newest one. |
+| `--no-photos` | Uploads the FIT activity without screenshots. |
+| `--force` | Allows another upload of a file already recorded by the helper. This can create a duplicate Strava activity. |
+| `--activities-dir "C:\path"` | Uses a non-standard GTBikeV Activities folder. |
+
+The helper records a SHA-256 fingerprint as soon as each FIT file is submitted in `%LOCALAPPDATA%\GTBikeVStravaUploader\uploaded.json` to reduce accidental duplicates—even if the final photo or save step needs manual completion. Its persistent Edge sign-in is stored under the same local application-data folder. Do not share that folder because it contains the browser session. Strava can change its website at any time, so use `--dry-run` first after a long gap and check the selected screenshots before allowing an upload to finish.
 
 ## Compatibility and Known Conflicts
 
