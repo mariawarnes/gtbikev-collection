@@ -196,6 +196,8 @@ Steam updates and file verification can replace the downgraded executable and mo
 
 ## Recommended Extra Mods
 
+Install these only after the main GTBikeV setup is complete. Close GTA V and Rockstar Games Launcher before copying or replacing files. Each mod is independent, so you can install only the ones you want.
+
 ### [100% Game Save by DireZephyr](https://www.gta5-mods.com/misc/100-save-game)
 **Purpose**: Unlocks all the outfit choices for all characters.
 
@@ -232,10 +234,88 @@ Steam updates and file verification can replace the downgraded executable and mo
 ### [Straight To Story Mode by Chiheb-Bacha](https://www.gta5-mods.com/scripts/straight-to-story-mode)
 **Purpose**: Makes getting into the game quicker.
 
+This ASI plugin skips the legal and splash screens and takes GTA V Legacy directly to Story Mode. The GTBikeV installer has already supplied the required ScriptHookV and ASI loader.
+
+1. Download the latest version from the linked GTA5-Mods page. Use version `1.1` or later because it supports older GTA V Legacy builds.
+2. Open the downloaded archive.
+3. Copy `StraightToStoryMode.asi` into the GTA V game root beside `GTA5.exe` and `dinput8.dll`.
+4. Launch GTA V normally through Steam. The ASI loader will load the plugin automatically.
+
+The final location should be:
+
+```text
+Grand Theft Auto V\StraightToStoryMode.asi
+```
+
+To remove the mod, close GTA V and delete `StraightToStoryMode.asi`. If it does not load, confirm `dinput8.dll` is still in the game root and check `StraightToStoryMode.log` and `asiloader.log` for errors.
+
 ### [Activity Ghosts by oldnapalm](https://github.com/oldnapalm/ActivityGhosts)
 **Purpose**: Gives you a physical manifestation of your previous best time to chase to push you for a PB.
 
+1. Open the [latest Activity Ghosts release](https://github.com/oldnapalm/ActivityGhosts/releases/latest) and download its release archive.
+2. Open the archive and copy these three files into the existing `Scripts` folder in the GTA V game root:
+
+   ```text
+   ActivityGhosts.dll
+   ActivityGhosts.ini
+   LiteDB.dll
+   ```
+
+3. Open `Scripts\ActivityGhosts.ini` if you want to change its preferences:
+   - `MenuKey` opens the Activity Ghosts menu. The default is F8.
+   - `LoadKey` loads or regroups the ghosts.
+   - `InitialGPSPointLat` and `InitialGPSPointLong` set the starting GPS point used by FIT files.
+   - `Opacity` controls ghost visibility from 1 to 5.
+   - `ShowDate` controls whether each activity date appears above its ghost.
+4. Save the INI after making any changes.
+5. Select a course in GTBikeV and begin an activity.
+6. Press **F8** to open the Activity Ghosts menu.
+
+Activity Ghosts reads previous rides from:
+
+```text
+Documents\Rockstar Games\GTA V\Activities
+```
+
+If Documents is redirected through OneDrive, check:
+
+```text
+OneDrive\Documents\Rockstar Games\GTA V\Activities
+```
+
+The normal GTBikeV installation already supplies its other requirements. To remove Activity Ghosts, close GTA V and delete `ActivityGhosts.dll`, `ActivityGhosts.ini`, and `LiteDB.dll` from `Scripts`.
+
 ### [Tour de France Pack by GTA Belgium](https://www.gta5-mods.com/player/tour-de-france-pack)
 **Purpose**: Gives you Tour de France outfits.
+
+> **OpenIV modification:** This pack replaces game clothing files. Back up the affected files and use OpenIV's `mods` folder rather than editing the original archives. Keep this optional modification out of the initial GTBikeV installation.
+
+The pack contains yellow Tour de France outfits for Franklin and Michael. These replace their existing Triathlon outfits. It also contains an optional paintjob for a separate Audi RS4 mod; the car is not required for the cycling outfits.
+
+#### Install the outfits
+
+1. Download and install [OpenIV](https://openiv.com/).
+2. Start OpenIV, choose **Grand Theft Auto V → Windows**, and select the GTA V Legacy folder if it is not detected automatically.
+3. Open **Tools → ASI Manager**.
+4. Install **OpenIV.asi**. If ASI Loader is already shown as installed, leave it as it is because the GTBikeV installer supplied `dinput8.dll`.
+5. Enable **Edit mode** in OpenIV.
+6. If OpenIV offers to create or use a `mods` folder, accept it. Make changes in `mods`, not in the original game archives.
+7. Download and open the Tour de France Pack archive.
+8. Open its `files` folder. It contains separate `Franklin`, `Michael`, and Audi folders, so you can choose which parts to install.
+9. Open the text file supplied inside the `Franklin` folder and navigate to that exact archive path in OpenIV.
+10. Use OpenIV to replace the listed Triathlon outfit files with the matching Franklin files from the pack.
+11. Repeat the process using the path text file and replacement files in the `Michael` folder.
+12. Close OpenIV after all replacements finish.
+
+The Tour de France clothing will appear when Franklin or Michael equips the Triathlon outfit that the pack replaced.
+
+#### Optional Audi paintjob
+
+1. First install Dreamsky's [2013 Audi RS4 Avant](https://www.gta5-mods.com/vehicles/2013-audi-rs4-avant) by following that mod's instructions.
+2. In OpenIV, open the installed car's `stratum.ytd` and `stratum+hi.ytd` texture dictionaries.
+3. Replace the relevant image texture with the Tour de France texture from the pack's Audi folder.
+4. Save the modified texture dictionaries in the `mods` folder.
+
+To remove the outfits or paintjob, restore the backed-up files in the same OpenIV paths or remove their modified archive copies from the `mods` folder. Do not delete unrelated files from `mods`.
 
 
