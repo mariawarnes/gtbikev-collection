@@ -335,7 +335,7 @@ It uses a dedicated Microsoft Edge profile and does not read or copy passwords f
 #### First-time requirements
 
 1. Install [Python 3 for Windows](https://www.python.org/downloads/windows/) if it is not already installed. Enable the Python launcher during installation.
-2. Keep Microsoft Edge installed. Selenium uses Edge to operate Strava's signed-in website.
+2. Keep Microsoft Edge installed. Selenium uses Edge to operate Strava's signed-in website. The helper detects the installed Edge version and downloads the matching official Microsoft Edge WebDriver automatically on first use and after Edge updates.
 3. Right-click the Windows Start button and open **Terminal** or **PowerShell**.
 4. Change to the cloned collection folder, then run:
 

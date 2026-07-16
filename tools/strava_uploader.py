@@ -4,17 +4,29 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
 import hashlib
 import json
 import os
 import sys
 import time
+import urllib.request
+import winreg
+import zipfile
+from ctypes import wintypes
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import fitdecode
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    ElementNotInteractableException,
+    NoSuchElementException,
+    StaleElementReferenceException,
+    TimeoutException,
+)
+from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -111,14 +123,92 @@ def save_uploaded(values: set[str]) -> None:
     state_path().write_text(json.dumps(sorted(values), indent=2), encoding="utf-8")
 
 
+def application_data_dir() -> Path:
+    root = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "GTBikeVStravaUploader"
+    root.mkdir(parents=True, exist_ok=True)
+    return root
+
+
+def installed_edge_version() -> str:
+    registry_paths = (
+        (winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Edge\BLBeacon"),
+        (winreg.HKEY_LOCAL_MACHINE, r"Software\Microsoft\Edge\BLBeacon"),
+        (winreg.HKEY_LOCAL_MACHINE, r"Software\WOW6432Node\Microsoft\Edge\BLBeacon"),
+    )
+    for hive, key_path in registry_paths:
+        try:
+            with winreg.OpenKey(hive, key_path) as key:
+                version, _ = winreg.QueryValueEx(key, "version")
+                if version:
+                    return str(version)
+        except OSError:
+            continue
+    edge_paths = (
+        Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)"))
+        / "Microsoft/Edge/Application/msedge.exe",
+        Path(os.environ.get("ProgramFiles", r"C:\Program Files"))
+        / "Microsoft/Edge/Application/msedge.exe",
+    )
+    for edge_path in edge_paths:
+        if not edge_path.is_file():
+            continue
+        size = ctypes.windll.version.GetFileVersionInfoSizeW(str(edge_path), None)
+        if not size:
+            continue
+        data = ctypes.create_string_buffer(size)
+        if not ctypes.windll.version.GetFileVersionInfoW(str(edge_path), 0, size, data):
+            continue
+        value = ctypes.c_void_p()
+        value_size = wintypes.UINT()
+        if not ctypes.windll.version.VerQueryValueW(
+            data, "\\", ctypes.byref(value), ctypes.byref(value_size)
+        ):
+            continue
+        words = ctypes.cast(value, ctypes.POINTER(wintypes.DWORD * 13)).contents
+        version_ms, version_ls = words[2], words[3]
+        return ".".join(
+            str(part) for part in (
+                version_ms >> 16, version_ms & 0xFFFF,
+                version_ls >> 16, version_ls & 0xFFFF,
+            )
+        )
+    raise RuntimeError("Microsoft Edge is installed, but its version could not be detected.")
+
+
+def matching_edge_driver() -> Path:
+    version = installed_edge_version()
+    driver_dir = application_data_dir() / "Drivers" / version
+    driver = driver_dir / "msedgedriver.exe"
+    if driver.is_file():
+        return driver
+
+    driver_dir.mkdir(parents=True, exist_ok=True)
+    archive = driver_dir / "edgedriver_win64.zip"
+    url = f"https://msedgedriver.microsoft.com/{version}/edgedriver_win64.zip"
+    print(f"Downloading Microsoft Edge WebDriver {version}...")
+    try:
+        urllib.request.urlretrieve(url, archive)
+        with zipfile.ZipFile(archive) as zipped:
+            zipped.extract("msedgedriver.exe", driver_dir)
+    except Exception as error:
+        raise RuntimeError(
+            f"Could not download the matching Edge WebDriver from {url}: {error}"
+        ) from error
+    finally:
+        if archive.exists():
+            archive.unlink()
+    return driver
+
+
 def edge_driver() -> webdriver.Edge:
-    profile = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "GTBikeVStravaUploader/EdgeProfile"
+    profile = application_data_dir() / "EdgeProfile"
     profile.mkdir(parents=True, exist_ok=True)
     options = webdriver.EdgeOptions()
     options.add_argument(f"--user-data-dir={profile}")
     options.add_argument("--start-maximized")
     options.add_experimental_option("detach", True)
-    return webdriver.Edge(options=options)
+    service = EdgeService(executable_path=str(matching_edge_driver()))
+    return webdriver.Edge(service=service, options=options)
 
 
 def wait_for_strava_login(driver: webdriver.Edge) -> None:
@@ -138,40 +228,85 @@ def fit_input(driver: webdriver.Edge):
     return WebDriverWait(driver, 60).until(locate)
 
 
+def dismiss_cookie_notice(driver: webdriver.Edge) -> None:
+    try:
+        decline = driver.find_element(By.ID, "CybotCookiebotDialogBodyButtonDecline")
+        if decline.is_displayed():
+            decline.click()
+    except (NoSuchElementException, ElementNotInteractableException):
+        pass
+
+
 def add_photos(driver: webdriver.Edge, photos: list[Path]) -> bool:
     if not photos:
         return True
+    try:
+        edit = WebDriverWait(driver, 30).until(
+            lambda browser: next(
+                (element for element in browser.find_elements(By.XPATH, "//a | //button")
+                 if "edit this activity" in (element.accessible_name or "").lower()
+                 and element.is_displayed()),
+                False,
+            )
+        )
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", edit)
+        edit.click()
+    except (TimeoutException, ElementNotInteractableException):
+        return False
+
     deadline = time.time() + 90
     while time.time() < deadline:
         for element in driver.find_elements(By.CSS_SELECTOR, "input[type='file']"):
             accept = (element.get_attribute("accept") or "").lower()
-            if "image" in accept or ".jpg" in accept or ".png" in accept:
+            if ("image" in accept or ".jpg" in accept or ".png" in accept
+                    or (not accept and "/edit" in driver.current_url)):
                 element.send_keys("\n".join(str(path) for path in photos))
-                return True
-        for label in ("Add photos", "Add Photos", "Upload photos"):
-            try:
-                driver.find_element(By.XPATH, f"//*[self::button or self::label][contains(normalize-space(), '{label}')]").click()
-                time.sleep(1)
-                break
-            except NoSuchElementException:
-                pass
+                return save_edit(driver)
+        time.sleep(2)
+    return False
+
+
+def click_visible_button(driver: webdriver.Edge, labels: tuple[str, ...], timeout: int) -> bool:
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        dismiss_cookie_notice(driver)
+        for label in labels:
+            for button in driver.find_elements(
+                By.XPATH, f"//button[contains(normalize-space(), '{label}')]"
+            ):
+                try:
+                    if button.is_displayed() and button.is_enabled():
+                        driver.execute_script(
+                            "arguments[0].scrollIntoView({block: 'center'});", button
+                        )
+                        button.click()
+                        return True
+                except (
+                    ElementClickInterceptedException,
+                    ElementNotInteractableException,
+                    StaleElementReferenceException,
+                ):
+                    continue
         time.sleep(2)
     return False
 
 
 def save_activity(driver: webdriver.Edge) -> bool:
+    return click_visible_button(
+        driver, ("Save & View", "Save & view", "Save and view", "Save Activity"), 90
+    )
+
+
+def save_edit(driver: webdriver.Edge) -> bool:
+    previous_url = driver.current_url
+    if not click_visible_button(driver, ("Save",), 90):
+        return False
     deadline = time.time() + 90
     while time.time() < deadline:
-        for label in ("Save & view", "Save and view", "Save Activity", "Save"):
-            try:
-                button = driver.find_element(By.XPATH, f"//button[contains(normalize-space(), '{label}')]")
-                if button.is_enabled():
-                    button.click()
-                    return True
-            except NoSuchElementException:
-                pass
+        if driver.current_url != previous_url and "/activities/" in driver.current_url:
+            return True
         time.sleep(2)
-    return False
+    return "/activities/" in driver.current_url and not driver.current_url.endswith("/edit")
 
 
 def parse_args() -> argparse.Namespace:
@@ -217,9 +352,16 @@ def main() -> int:
         save_uploaded(uploaded)
         print("FIT file submitted. Waiting for Strava to process it...")
         time.sleep(5)
-        photos_added = add_photos(driver, photos)
         saved = save_activity(driver)
-        if not photos_added or not saved:
+        if saved:
+            try:
+                WebDriverWait(driver, 60).until(
+                    lambda browser: "/activities/" in browser.current_url
+                )
+            except TimeoutException:
+                saved = False
+        photos_added = add_photos(driver, photos) if saved else False
+        if not saved or not photos_added:
             print("Strava's page controls were not fully recognised.")
             print("The browser has been left open; attach any listed screenshots and click Save & view.")
             return 1
@@ -233,6 +375,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (FileNotFoundError, fitdecode.FitError) as error:
+    except (FileNotFoundError, fitdecode.FitError, RuntimeError) as error:
         print(f"Error: {error}", file=sys.stderr)
         raise SystemExit(1)
