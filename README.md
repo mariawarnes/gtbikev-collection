@@ -368,6 +368,39 @@ Useful options:
 | `--force` | Allows another upload of a file already recorded by the helper. This can create a duplicate Strava activity. |
 | `--activities-dir "C:\path"` | Uses a non-standard GTBikeV Activities folder. |
 
+#### Test with synthetic rides
+
+The `tools\test-data` folder contains two small synthetic cycling activities and one matching placeholder screenshot for each ride:
+
+```text
+test-short-ride.fit
+test-short-ride-screenshot.png
+test-second-ride.fit
+test-second-ride-screenshot.png
+```
+
+First confirm the helper selects the correct screenshot without uploading:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\run_strava_uploader.ps1 --activities-dir .\tools\test-data --fit .\tools\test-data\test-short-ride.fit --dry-run
+```
+
+Remove `--dry-run` to perform a real Strava upload:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\run_strava_uploader.ps1 --activities-dir .\tools\test-data --fit .\tools\test-data\test-short-ride.fit
+```
+
+> **Test-data warning:** These are fake rides near central London. A real upload creates a synthetic activity in your Strava account; delete it from Strava after finishing the test.
+
+The committed fixtures retain the timestamps from when they were generated. To create fresh test rides with current timestamps, run:
+
+```powershell
+.\tools\.venv\Scripts\python.exe .\tools\generate_test_fit_files.py
+```
+
+The generator recreates both FIT files and sets each placeholder screenshot's modified time inside its corresponding ride window.
+
 The helper records a SHA-256 fingerprint as soon as each FIT file is submitted in `%LOCALAPPDATA%\GTBikeVStravaUploader\uploaded.json` to reduce accidental duplicates—even if the final photo or save step needs manual completion. Its persistent Edge sign-in is stored under the same local application-data folder. Do not share that folder because it contains the browser session. Strava can change its website at any time, so use `--dry-run` first after a long gap and check the selected screenshots before allowing an upload to finish.
 
 ## Compatibility and Known Conflicts
