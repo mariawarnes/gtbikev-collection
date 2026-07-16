@@ -16,6 +16,7 @@ A collection of mods and tutorials to enhance your GTBike V experience.
   - [Step 7 — Disable BattlEye](#step-7--disable-battleye-for-story-mode)
   - [Step 8 — Install GTBikeV](#step-8--install-gtbikev-and-its-scripthook-components)
   - [Step 9 — Launch GTBikeV](#step-9--launch-gtbikev)
+- [Stream GTBikeV with Moonlight and VirtualHere](#stream-gtbikev-with-moonlight-and-virtualhere)
 - [Important Keys](#important-keys)
 - [Troubleshooting](#troubleshooting)
 - [Known Issues](#known-issues)
@@ -193,6 +194,53 @@ If you find any, move them to a backup folder outside GTA V. Do not delete them.
 2. Enter Story Mode only.
 3. Wait for the scripts to load.
 4. Use the GTBikeV interface to select your trainer or sensors.
+
+## Stream GTBikeV with Moonlight and VirtualHere
+
+This optional setup lets the gaming PC run GTA V in one room while you ride beside a second computer or compatible streaming device. [Moonlight](https://moonlight-stream.org/) carries the picture, sound, keyboard, controller, and mouse input. [VirtualHere](https://www.virtualhere.com/) carries a USB ANT+ dongle or USB Bluetooth adapter over the network so it appears to be plugged into the gaming PC.
+
+This guide assumes both devices are on the same trusted home network:
+
+- **Gaming PC:** The Windows computer on which Steam, GTA V Legacy, and GTBikeV are installed.
+- **Bike-side device:** The computer or compatible device beside the trainer. The USB sensor dongle is connected here and Moonlight displays the game here.
+
+> Moonlight and VirtualHere use opposite client/server directions. Sunshine is the streaming **host** on the gaming PC, but the VirtualHere **Server** runs on the bike-side device because that is where the physical USB dongle is connected.
+
+### Set up Moonlight
+
+1. On the gaming PC, download and install [Sunshine](https://github.com/LizardByte/Sunshine/releases/latest), the recommended host for Moonlight.
+2. Open Sunshine's web interface, create its administrator credentials, and finish the Windows setup. Restart the gaming PC if the installer requests it.
+3. On the bike-side device, install the appropriate [Moonlight client](https://moonlight-stream.org/).
+4. Connect both devices to the same network and open Moonlight. Select the gaming PC when it appears.
+5. Moonlight will display a pairing PIN. Enter that PIN in Sunshine on the gaming PC and approve the device.
+6. Use Sunshine's built-in **Desktop** or **Steam** entry. The Desktop entry is convenient for opening Steam, Rockstar Games Launcher, VirtualHere, and any error messages during setup.
+7. In Moonlight's settings, choose a resolution and frame rate that the bike-side display and network can sustain. A wired Ethernet connection for the gaming PC—and preferably both devices—will provide the most consistent latency.
+
+For additional platforms, controller options, or streaming outside the home, follow the official [Moonlight setup guide](https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide). Do not expose Sunshine or VirtualHere directly to the public internet without following their secure remote-access guidance.
+
+### Forward the trainer dongle with VirtualHere
+
+1. Connect the ANT+ USB dongle to the bike-side device. A USB extension cable can position an ANT+ dongle closer to the trainer and reduce wireless dropouts.
+2. Install the appropriate [VirtualHere USB Server](https://www.virtualhere.com/usb_server_software) on the **bike-side device** and start it.
+3. Download and run the [VirtualHere USB Client](https://www.virtualhere.com/usb_client_software) on the **gaming PC**.
+4. The gaming PC's VirtualHere Client should discover the bike-side server and list its USB devices automatically.
+5. Find the ANT+ dongle, right-click it, and select **Use this device**. Windows on the gaming PC will then treat it as a locally connected USB device.
+6. Leave the VirtualHere Server and Client running while using GTBikeV.
+
+The VirtualHere trial permits one shared USB device at a time, which is normally enough for one ANT+ dongle. A licence is required if you need to share multiple USB devices simultaneously.
+
+For Bluetooth equipment, VirtualHere cannot forward Bluetooth that is built into the bike-side computer. You would need to connect and share an entire **USB Bluetooth adapter** instead. Do not share individual Bluetooth devices, and avoid having both a local and forwarded Bluetooth adapter active on the gaming PC. ANT+ is generally the simpler option for this arrangement.
+
+### Start a streamed ride
+
+1. Start the VirtualHere Server on the bike-side device.
+2. On the gaming PC, open the VirtualHere Client and select **Use this device** for the ANT+ dongle.
+3. Start Sunshine on the gaming PC if it is not already running.
+4. Open Moonlight on the bike-side device and connect to **Desktop** or **Steam**.
+5. Launch GTA V Legacy through Steam and enter Story Mode.
+6. Press **F5**, activate GTBikeV, and select the trainer or sensors.
+
+Only one computer can use a forwarded USB device at a time. Before unplugging the dongle or closing VirtualHere, right-click the device in the VirtualHere Client on the gaming PC and select **Stop using this device**. If GTBikeV cannot see the trainer, make sure another cycling application is not already connected to it and confirm the dongle still shows as in use by the gaming PC.
 
 ## Important Keys
 
