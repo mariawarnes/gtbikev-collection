@@ -3,6 +3,34 @@ A collection of mods and tutorials to enhance your GTBike V experience.
 
 > GTBike V is a mod for GTA V by Nestor Matas, (AKA Makinolo). **This collection is not affiliated with Makinolo or Rockstar**.
 
+## Table of contents
+
+- [Install GTBike V](#install-gtbike-v)
+  - [Step 0 — Choose your starting point](#step-0--choose-your-starting-point)
+  - [Step 1 — Find the GTA V folder](#step-1--find-the-gta-v-folder)
+  - [Step 2 — Downgrade GTA V Legacy](#step-2--downgrade-gta-v-legacy-to-the-compatible-executable)
+  - [Step 3 — Reduce automatic updates](#step-3--reduce-automatic-updates)
+  - [Step 4 — Apply the compatible depot](#step-4--download-and-apply-the-compatible-depot)
+  - [Step 5 — Confirm there are no old mods](#step-5--confirm-there-are-no-old-mods)
+  - [Step 6 — Install the Windows prerequisites](#step-6--install-the-windows-prerequisites)
+  - [Step 7 — Disable BattlEye](#step-7--disable-battleye-for-story-mode)
+  - [Step 8 — Install GTBikeV](#step-8--install-gtbikev-and-its-scripthook-components)
+  - [Step 9 — Launch GTBikeV](#step-9--launch-gtbikev)
+- [Stream GTBikeV with Moonlight and VirtualHere](#stream-gtbikev-with-moonlight-and-virtualhere)
+- [Important Keys](#important-keys)
+- [Troubleshooting](#troubleshooting)
+- [Known Issues](#known-issues)
+- [Compatibility and Known Conflicts](#compatibility-and-known-conflicts)
+- [Recommended Extra Mods](#recommended-extra-mods)
+  - [100% Game Save](#100-game-save-by-direzephyr)
+  - [Straight To Story Mode](#straight-to-story-mode-by-chiheb-bacha)
+  - [Activity Ghosts](#activity-ghosts-by-oldnapalm)
+  - [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods)
+  - [VisualV](#visualv)
+  - [Real Road Bike Pack](#real-road-bike-pack)
+  - [Dynamic Population Density](#dynamic-population-density)
+  - [Tour de France Pack](#tour-de-france-pack-by-gta-belgium)
+
 ## Install GTBike V
 
 > This guide starts with a Windows PC that has **only Steam installed**. 
@@ -167,6 +195,72 @@ If you find any, move them to a backup folder outside GTA V. Do not delete them.
 3. Wait for the scripts to load.
 4. Use the GTBikeV interface to select your trainer or sensors.
 
+## Stream GTBikeV with Moonlight and VirtualHere
+
+This optional setup lets the gaming PC run GTA V in one room while you ride beside a second computer or compatible streaming device. [Moonlight](https://moonlight-stream.org/) carries the picture, sound, keyboard, controller, and mouse input. [VirtualHere](https://www.virtualhere.com/) carries a USB ANT+ dongle or USB Bluetooth adapter over the network so it appears to be plugged into the gaming PC.
+
+This guide assumes both devices are on the same trusted home network:
+
+- **Gaming PC:** The Windows computer on which Steam, GTA V Legacy, and GTBikeV are installed.
+- **Bike-side device:** The computer or compatible device beside the trainer. The USB sensor dongle is connected here and Moonlight displays the game here.
+
+> Moonlight and VirtualHere use opposite client/server directions. Sunshine is the streaming **host** on the gaming PC, but the VirtualHere **Server** runs on the bike-side device because that is where the physical USB dongle is connected.
+
+### Set up Moonlight
+
+1. On the gaming PC, download and install [Sunshine](https://github.com/LizardByte/Sunshine/releases/latest), the recommended host for Moonlight.
+2. Open Sunshine's web interface, create its administrator credentials, and finish the Windows setup. Restart the gaming PC if the installer requests it.
+3. On the bike-side device, install the appropriate [Moonlight client](https://moonlight-stream.org/).
+4. Connect both devices to the same network and open Moonlight. Select the gaming PC when it appears.
+5. Moonlight will display a pairing PIN. Enter that PIN in Sunshine on the gaming PC and approve the device.
+6. Use Sunshine's built-in **Desktop** or **Steam** entry. The Desktop entry is convenient for opening Steam, Rockstar Games Launcher, VirtualHere, and any error messages during setup.
+7. In Moonlight's settings, choose a resolution and frame rate that the bike-side display and network can sustain. A wired Ethernet connection for the gaming PC—and preferably both devices—will provide the most consistent latency.
+
+For additional platforms, controller options, or streaming outside the home, follow the official [Moonlight setup guide](https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide). Do not expose Sunshine or VirtualHere directly to the public internet without following their secure remote-access guidance.
+
+### Forward the trainer dongle with VirtualHere
+
+1. Connect the ANT+ USB dongle to the bike-side device. A USB extension cable can position an ANT+ dongle closer to the trainer and reduce wireless dropouts.
+2. Install the appropriate [VirtualHere USB Server](https://www.virtualhere.com/usb_server_software) on the **bike-side device** and start it.
+3. Download and run the [VirtualHere USB Client](https://www.virtualhere.com/usb_client_software) on the **gaming PC**.
+4. The gaming PC's VirtualHere Client should discover the bike-side server and list its USB devices automatically.
+5. Find the ANT+ dongle, right-click it, and select **Use this device**. Windows on the gaming PC will then treat it as a locally connected USB device.
+6. Leave the VirtualHere Server and Client running while using GTBikeV.
+
+The VirtualHere trial permits one shared USB device at a time, which is normally enough for one ANT+ dongle. A licence is required if you need to share multiple USB devices simultaneously.
+
+For Bluetooth equipment, VirtualHere cannot forward Bluetooth that is built into the bike-side computer. You would need to connect and share an entire **USB Bluetooth adapter** instead. Do not share individual Bluetooth devices, and avoid having both a local and forwarded Bluetooth adapter active on the gaming PC. ANT+ is generally the simpler option for this arrangement.
+
+### Start a streamed ride
+
+1. Start the VirtualHere Server on the bike-side device.
+2. On the gaming PC, open the VirtualHere Client and select **Use this device** for the ANT+ dongle.
+3. Start Sunshine on the gaming PC if it is not already running.
+4. Open Moonlight on the bike-side device and connect to **Desktop** or **Steam**.
+5. Launch GTA V Legacy through Steam and enter Story Mode.
+6. Press **F5**, activate GTBikeV, and select the trainer or sensors.
+
+Only one computer can use a forwarded USB device at a time. Before unplugging the dongle or closing VirtualHere, right-click the device in the VirtualHere Client on the gaming PC and select **Stop using this device**. If GTBikeV cannot see the trainer, make sure another cycling application is not already connected to it and confirm the dongle still shows as in use by the gaming PC.
+
+## Important Keys
+
+| Key | Function | When it works |
+| --- | --- | --- |
+| **F5** | Opens or closes the **GTBikeV menu**. | In Story Mode after GTBikeV has loaded. Use this menu to activate the mod, choose a course, configure devices, and end or save a ride. |
+| **F11** | Opens or closes the **GTBikeV debug window**. | After GTBikeV has loaded. Use it to check whether trainers and sensors have connected. |
+| **T** | Opens the **GTBikeV multiplayer chat** so you can type a message. | After the mod has been activated and connected to GTBikeV multiplayer. Press **Enter** to send the message. |
+| **Z** | Shows the list of connected GTBikeV multiplayer riders. | While connected to GTBikeV multiplayer. |
+| **F8** | Opens the **Activity Ghosts menu**. | Only after installing the optional [Activity Ghosts](#activity-ghosts-by-oldnapalm) mod. |
+| **F4** | Opens or closes the **ScriptHookVDotNet console**. | When ScriptHookVDotNet is running. This is a developer/debugging console, **not** the GTBikeV menu. |
+| **S** | Applies the bicycle brakes. | During a GTBikeV ride. |
+| **Numpad 1** | Toggles automatic steering. | During a ride; useful when following a course. |
+| **Numpad 2** | Selects another random destination. | During free-roam riding. |
+| **Numpad 3** | Hides or shows the ride HUD. | During a ride. |
+| **Numpad 5** | Toggles ERG mode during a workout. | During a structured workout with a compatible trainer. |
+| **Numpad 0** | Takes a manual screenshot. | During a ride. The screenshot is stored with the activity files. |
+
+> **Keyboard note:** `Numpad` means the separate numeric keypad, not the number row above the letters. Laptop users may need to enable Num Lock, use an embedded keypad shortcut, or remap these controls in `GTBikeVConfig.ini`.
+
 ## Troubleshooting
 
 ### No `asiloader.log`
@@ -192,6 +286,59 @@ If you find any, move them to a backup folder outside GTA V. Do not delete them.
 ### GTA V was updated
 
 Steam updates and file verification can replace the downgraded executable and mod files. Repeat the depot copy in [Step 4](#Step 4 — Download and apply the compatible depot), then rerun the GTBikeV installer from [Step 8](Step 8 — Install GTBikeV and its ScriptHook components) if its files were replaced.
+
+## Known Issues
+
+### Strava user lookup fails
+
+GTBikeV's automatic Strava account-linking page may fail while looking up the Strava user. If the lookup does not complete or reports that the user cannot be found, use GTBikeV's FIT-file export and upload the activity manually instead.
+
+#### Save the activity in GTBikeV
+
+1. At the end of the ride, stop pedalling and wait until the activity computer shows zero speed.
+2. Press **F5** to open the GTBikeV menu.
+3. Select **End and save current activity**. Do not choose the option that discards the activity.
+4. GTBikeV will create a `.fit` file in:
+
+   ```text
+   Documents\Rockstar Games\GTA V\Activities
+   ```
+
+   If Windows redirects Documents through OneDrive, check:
+
+   ```text
+   OneDrive\Documents\Rockstar Games\GTA V\Activities
+   ```
+
+#### Upload the FIT file manually to Strava
+
+1. Sign in to [Strava](https://www.strava.com/).
+2. Open Strava's [file upload page](https://www.strava.com/upload/select). You can also select the **+** icon, then **Upload activity → File**.
+3. Select **Choose files**.
+4. Open the `Activities` folder shown above and select the `.fit` file for the completed ride. Use the file's date and time to identify the correct one.
+5. Wait for Strava to process the file.
+6. Review the activity details, make any desired changes, and select **Save & view**.
+
+The manual upload contains the recorded ride data; automatic Strava linking is not required. Keep the FIT file until the activity appears correctly in your Strava account, and do not upload the same file twice because that can create a duplicate activity.
+
+## Compatibility and Known Conflicts
+
+GTBikeV is a GTA V Legacy **Story Mode** script. It depends on ScriptHookV, ScriptHookVDotNet, and native Bluetooth/ANT+ libraries that communicate with cycling hardware.
+
+| Mod, platform, or configuration | Compatibility | Explanation |
+| --- | --- | --- |
+| **FiveM** | **Not compatible** | GTBikeV's author has confirmed that a FiveM port would require a full rewrite. FiveM does not allow the unmanaged Bluetooth and ANT+ code used by GTBikeV to communicate with cycling hardware. Installing GTBikeV files into FiveM will not make it work. |
+| **Official GTA Online** | **Not supported** | ScriptHook mods are intended for Story Mode, and this guide disables BattlEye. Do not enter GTA Online with the modded installation. GTBikeV's own multiplayer feature works independently of GTA Online. |
+| **Other multiplayer clients**, such as alt:V or RAGE Multiplayer | **Not documented or supported** | This collection only covers normal GTA V Legacy Story Mode. Do not assume that support for GTA V scripts means GTBikeV's native hardware libraries will work in another multiplayer client. |
+| **A second ASI loader, ScriptHookV, or ScriptHookVDotNet installation** | **Likely conflict** | The GTBikeV installer supplies the required scripting components. Another mod installer may replace `dinput8.dll`, `ScriptHookV.dll`, or the ScriptHookVDotNet files with a different version and stop GTBikeV from loading. |
+| **Duplicate dependency DLLs** | **Likely conflict** | Avoid adding separate versions of libraries already supplied in `Scripts`, including UI, FIT, JSON, Bluetooth, ANT+, and networking DLLs. Keep the versions installed with GTBikeV unless another mod explicitly documents compatibility. |
+| **Bike handling, player-control, autopilot, or input-overhaul mods** | **May conflict** | GTBikeV controls the bicycle, rider input, speed, resistance, and automatic course following. Another script that controls the same systems may override GTBikeV or produce unpredictable steering and movement. |
+| **Mods using the same hotkeys** | **Usually compatible after rebinding** | If two menus open from the same key, change one mod's INI setting. For example, Activity Ghosts uses F8 by default and ScriptHookVDotNet uses F4 for its console. |
+| **Cosmetic OpenIV mods** | **Generally compatible** | Clothing and texture replacements, such as the Tour de France Pack below, do not normally compete with GTBikeV's cycling logic. Use OpenIV's `mods` folder and keep backups. |
+
+FiveM is the only third-party multiplayer client specifically confirmed as incompatible by the [GTBikeV author on the mod page](https://www.gta5-mods.com/scripts/gt-bike-v). The other entries marked **likely conflict** or **may conflict** are categories to treat cautiously, not claims that every mod in that category will fail.
+
+When adding anything not listed here, install one mod at a time. If GTBikeV stops loading, remove the newest mod and restore the files installed by the official GTBikeV installer.
 
 
 ## Recommended Extra Mods
@@ -285,6 +432,82 @@ OneDrive\Documents\Rockstar Games\GTA V\Activities
 
 The normal GTBikeV installation already supplies its other requirements. To remove Activity Ghosts, close GTA V and delete `ActivityGhosts.dll`, `ActivityGhosts.ini`, and `LiteDB.dll` from `Scripts`.
 
+### Prepare OpenIV for cosmetic mods
+
+VisualV, Real Road Bike Pack, and Tour de France Pack use [OpenIV](https://openiv.com/) to place replacement files safely in a separate `mods` folder. Complete this setup once before installing any of those three mods:
+
+1. Download and install OpenIV.
+2. Start OpenIV, choose **Grand Theft Auto V → Windows**, and select the GTA V Legacy folder if it is not detected automatically.
+3. Open **Tools → ASI Manager**.
+4. Install **OpenIV.asi**. If ASI Loader is already shown as installed, leave it as it is because the GTBikeV installer supplied `dinput8.dll`.
+5. Enable **Edit mode**.
+6. Allow OpenIV to create the `mods` folder when prompted. Always modify the copies inside `mods`, not the original game archives.
+
+### [VisualV](https://www.gta5-mods.com/misc/visualv)
+
+**Purpose**: Improves GTA V's weather, lighting, colours, fog, shadows, and other visual effects.
+
+VisualV is expected to work with GTBikeV because it changes graphics rather than cycling controls or scripts. Download the **Legacy** release, not the Enhanced release. Start with the base VisualV package; its optional ReShade and ENB presets add more rendering changes and are not required.
+
+1. Complete [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods) above.
+2. Download the GTA V **Legacy** version of VisualV from the linked page and open the archive.
+3. In OpenIV, select **Tools → Package Installer**.
+4. Select `VisualV.oiv` from the downloaded archive.
+5. Choose **Install to "mods" folder** and complete the installation.
+6. Close OpenIV.
+
+Avoid combining VisualV's optional advanced motion-blur script with NaturalVision Evolved or NaturalVision Remastered scripts. To remove VisualV, use the uninstaller included with its download if available, or restore the affected archive copies in OpenIV's `mods` folder without deleting unrelated mods.
+
+### [Real Road Bike Pack](https://www.gta5-mods.com/paintjobs/real-road-bike-pack)
+
+**Purpose**: Replaces the textures of GTA V's three standard road/triathlon bikes with real-world-style designs.
+
+This pack is expected to work with GTBikeV because it only replaces textures on the standard `tribike`, `tribike2`, and `tribike3` models. Do not combine it with another texture pack that replaces the same files: the last files installed will overwrite the earlier ones.
+
+1. Complete [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods) above.
+2. Download and open the Real Road Bike Pack archive.
+3. In OpenIV, navigate to:
+
+   ```text
+   mods\x64e.rpf\levels\gta5\vehicles.rpf
+   ```
+
+4. If `x64e.rpf` is not yet in `mods`, let OpenIV copy it there before making changes.
+5. Back up the existing versions of these six files:
+
+   ```text
+   tribike.ytd
+   tribike+hi.ytd
+   tribike2.ytd
+   tribike2+hi.ytd
+   tribike3.ytd
+   tribike3+hi.ytd
+   ```
+
+6. With **Edit mode** enabled, replace those files with the matching files from the downloaded pack.
+7. Close OpenIV.
+
+To remove the pack, restore the six backed-up files at the same path. Do not remove the whole modified `x64e.rpf` if another mod also uses it.
+
+### [Dynamic Population Density](https://www.gta5-mods.com/scripts/dynamic-population-density)
+
+**Purpose**: Changes pedestrian and traffic density automatically according to the in-game time of day.
+
+The mod supports GTA V Legacy and is expected to work alongside GTBikeV. However, denser traffic and crowds can reduce performance and make cycling or autopilot routes more hazardous, so begin with its default settings and lower the values if necessary.
+
+1. Download and open the Dynamic Population Density archive.
+2. Copy these two files into the GTA V game root beside `GTA5.exe`:
+
+   ```text
+   Dynamic Population Density.asi
+   Dynamic Population Density.ini
+   ```
+
+3. Open `Dynamic Population Density.ini` in a text editor to adjust the traffic and pedestrian values for each time period, or leave its defaults unchanged.
+4. Save the INI. The ASI loader installed with GTBikeV will load the mod automatically when Story Mode starts.
+
+To remove the mod, close GTA V and delete both files from the game root. Avoid adding separate traffic-density or game-configuration mods at the same time unless you know they are compatible, because their changes can overlap and make the downgraded Legacy setup less stable.
+
 ### [Tour de France Pack by GTA Belgium](https://www.gta5-mods.com/player/tour-de-france-pack)
 **Purpose**: Gives you Tour de France outfits.
 
@@ -294,18 +517,13 @@ The pack contains yellow Tour de France outfits for Franklin and Michael. These 
 
 #### Install the outfits
 
-1. Download and install [OpenIV](https://openiv.com/).
-2. Start OpenIV, choose **Grand Theft Auto V → Windows**, and select the GTA V Legacy folder if it is not detected automatically.
-3. Open **Tools → ASI Manager**.
-4. Install **OpenIV.asi**. If ASI Loader is already shown as installed, leave it as it is because the GTBikeV installer supplied `dinput8.dll`.
-5. Enable **Edit mode** in OpenIV.
-6. If OpenIV offers to create or use a `mods` folder, accept it. Make changes in `mods`, not in the original game archives.
-7. Download and open the Tour de France Pack archive.
-8. Open its `files` folder. It contains separate `Franklin`, `Michael`, and Audi folders, so you can choose which parts to install.
-9. Open the text file supplied inside the `Franklin` folder and navigate to that exact archive path in OpenIV.
-10. Use OpenIV to replace the listed Triathlon outfit files with the matching Franklin files from the pack.
-11. Repeat the process using the path text file and replacement files in the `Michael` folder.
-12. Close OpenIV after all replacements finish.
+1. Complete [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods) above.
+2. Download and open the Tour de France Pack archive.
+3. Open its `files` folder. It contains separate `Franklin`, `Michael`, and Audi folders, so you can choose which parts to install.
+4. Open the text file supplied inside the `Franklin` folder and navigate to that exact archive path in OpenIV.
+5. Use OpenIV to replace the listed Triathlon outfit files with the matching Franklin files from the pack.
+6. Repeat the process using the path text file and replacement files in the `Michael` folder.
+7. Close OpenIV after all replacements finish.
 
 The Tour de France clothing will appear when Franklin or Michael equips the Triathlon outfit that the pack replaced.
 
