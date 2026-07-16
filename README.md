@@ -3,6 +3,26 @@ A collection of mods and tutorials to enhance your GTBike V experience.
 
 > GTBike V is a mod for GTA V by Nestor Matas, (AKA Makinolo). **This collection is not affiliated with Makinolo or Rockstar**.
 
+## Table of contents
+
+- [Install GTBike V](#install-gtbike-v)
+  - [Step 0 — Choose your starting point](#step-0--choose-your-starting-point)
+  - [Step 1 — Find the GTA V folder](#step-1--find-the-gta-v-folder)
+  - [Step 2 — Downgrade GTA V Legacy](#step-2--downgrade-gta-v-legacy-to-the-compatible-executable)
+  - [Step 3 — Reduce automatic updates](#step-3--reduce-automatic-updates)
+  - [Step 4 — Apply the compatible depot](#step-4--download-and-apply-the-compatible-depot)
+  - [Step 5 — Confirm there are no old mods](#step-5--confirm-there-are-no-old-mods)
+  - [Step 6 — Install the Windows prerequisites](#step-6--install-the-windows-prerequisites)
+  - [Step 7 — Disable BattlEye](#step-7--disable-battleye-for-story-mode)
+  - [Step 8 — Install GTBikeV](#step-8--install-gtbikev-and-its-scripthook-components)
+  - [Step 9 — Launch GTBikeV](#step-9--launch-gtbikev)
+- [Troubleshooting](#troubleshooting)
+- [Recommended Extra Mods](#recommended-extra-mods)
+  - [100% Game Save](#100-game-save-by-direzephyr)
+  - [Straight To Story Mode](#straight-to-story-mode-by-chiheb-bacha)
+  - [Activity Ghosts](#activity-ghosts-by-oldnapalm)
+  - [Tour de France Pack](#tour-de-france-pack-by-gta-belgium)
+
 ## Install GTBike V
 
 > This guide starts with a Windows PC that has **only Steam installed**. 
