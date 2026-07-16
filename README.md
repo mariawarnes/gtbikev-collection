@@ -17,6 +17,7 @@ A collection of mods and tutorials to enhance your GTBike V experience.
   - [Step 8 — Install GTBikeV](#step-8--install-gtbikev-and-its-scripthook-components)
   - [Step 9 — Launch GTBikeV](#step-9--launch-gtbikev)
 - [Troubleshooting](#troubleshooting)
+- [Compatibility and Known Conflicts](#compatibility-and-known-conflicts)
 - [Recommended Extra Mods](#recommended-extra-mods)
   - [100% Game Save](#100-game-save-by-direzephyr)
   - [Straight To Story Mode](#straight-to-story-mode-by-chiheb-bacha)
@@ -212,6 +213,25 @@ If you find any, move them to a backup folder outside GTA V. Do not delete them.
 ### GTA V was updated
 
 Steam updates and file verification can replace the downgraded executable and mod files. Repeat the depot copy in [Step 4](#Step 4 — Download and apply the compatible depot), then rerun the GTBikeV installer from [Step 8](Step 8 — Install GTBikeV and its ScriptHook components) if its files were replaced.
+
+## Compatibility and Known Conflicts
+
+GTBikeV is a GTA V Legacy **Story Mode** script. It depends on ScriptHookV, ScriptHookVDotNet, and native Bluetooth/ANT+ libraries that communicate with cycling hardware.
+
+| Mod, platform, or configuration | Compatibility | Explanation |
+| --- | --- | --- |
+| **FiveM** | **Not compatible** | GTBikeV's author has confirmed that a FiveM port would require a full rewrite. FiveM does not allow the unmanaged Bluetooth and ANT+ code used by GTBikeV to communicate with cycling hardware. Installing GTBikeV files into FiveM will not make it work. |
+| **Official GTA Online** | **Not supported** | ScriptHook mods are intended for Story Mode, and this guide disables BattlEye. Do not enter GTA Online with the modded installation. GTBikeV's own multiplayer feature works independently of GTA Online. |
+| **Other multiplayer clients**, such as alt:V or RAGE Multiplayer | **Not documented or supported** | This collection only covers normal GTA V Legacy Story Mode. Do not assume that support for GTA V scripts means GTBikeV's native hardware libraries will work in another multiplayer client. |
+| **A second ASI loader, ScriptHookV, or ScriptHookVDotNet installation** | **Likely conflict** | The GTBikeV installer supplies the required scripting components. Another mod installer may replace `dinput8.dll`, `ScriptHookV.dll`, or the ScriptHookVDotNet files with a different version and stop GTBikeV from loading. |
+| **Duplicate dependency DLLs** | **Likely conflict** | Avoid adding separate versions of libraries already supplied in `Scripts`, including UI, FIT, JSON, Bluetooth, ANT+, and networking DLLs. Keep the versions installed with GTBikeV unless another mod explicitly documents compatibility. |
+| **Bike handling, player-control, autopilot, or input-overhaul mods** | **May conflict** | GTBikeV controls the bicycle, rider input, speed, resistance, and automatic course following. Another script that controls the same systems may override GTBikeV or produce unpredictable steering and movement. |
+| **Mods using the same hotkeys** | **Usually compatible after rebinding** | If two menus open from the same key, change one mod's INI setting. For example, Activity Ghosts uses F8 by default and ScriptHookVDotNet uses F4 for its console. |
+| **Cosmetic OpenIV mods** | **Generally compatible** | Clothing and texture replacements, such as the Tour de France Pack below, do not normally compete with GTBikeV's cycling logic. Use OpenIV's `mods` folder and keep backups. |
+
+FiveM is the only third-party multiplayer client specifically confirmed as incompatible by the [GTBikeV author on the mod page](https://www.gta5-mods.com/scripts/gt-bike-v). The other entries marked **likely conflict** or **may conflict** are categories to treat cautiously, not claims that every mod in that category will fail.
+
+When adding anything not listed here, install one mod at a time. If GTBikeV stops loading, remove the newest mod and restore the files installed by the official GTBikeV installer.
 
 
 ## Recommended Extra Mods
