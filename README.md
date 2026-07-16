@@ -16,6 +16,7 @@ A collection of mods and tutorials to enhance your GTBike V experience.
   - [Step 7 — Disable BattlEye](#step-7--disable-battleye-for-story-mode)
   - [Step 8 — Install GTBikeV](#step-8--install-gtbikev-and-its-scripthook-components)
   - [Step 9 — Launch GTBikeV](#step-9--launch-gtbikev)
+- [Important Keys](#important-keys)
 - [Troubleshooting](#troubleshooting)
 - [Known Issues](#known-issues)
 - [Compatibility and Known Conflicts](#compatibility-and-known-conflicts)
@@ -192,6 +193,25 @@ If you find any, move them to a backup folder outside GTA V. Do not delete them.
 2. Enter Story Mode only.
 3. Wait for the scripts to load.
 4. Use the GTBikeV interface to select your trainer or sensors.
+
+## Important Keys
+
+| Key | Function | When it works |
+| --- | --- | --- |
+| **F5** | Opens or closes the **GTBikeV menu**. | In Story Mode after GTBikeV has loaded. Use this menu to activate the mod, choose a course, configure devices, and end or save a ride. |
+| **F11** | Opens or closes the **GTBikeV debug window**. | After GTBikeV has loaded. Use it to check whether trainers and sensors have connected. |
+| **T** | Opens the **GTBikeV multiplayer chat** so you can type a message. | After the mod has been activated and connected to GTBikeV multiplayer. Press **Enter** to send the message. |
+| **Z** | Shows the list of connected GTBikeV multiplayer riders. | While connected to GTBikeV multiplayer. |
+| **F8** | Opens the **Activity Ghosts menu**. | Only after installing the optional [Activity Ghosts](#activity-ghosts-by-oldnapalm) mod. |
+| **F4** | Opens or closes the **ScriptHookVDotNet console**. | When ScriptHookVDotNet is running. This is a developer/debugging console, **not** the GTBikeV menu. |
+| **S** | Applies the bicycle brakes. | During a GTBikeV ride. |
+| **Numpad 1** | Toggles automatic steering. | During a ride; useful when following a course. |
+| **Numpad 2** | Selects another random destination. | During free-roam riding. |
+| **Numpad 3** | Hides or shows the ride HUD. | During a ride. |
+| **Numpad 5** | Toggles ERG mode during a workout. | During a structured workout with a compatible trainer. |
+| **Numpad 0** | Takes a manual screenshot. | During a ride. The screenshot is stored with the activity files. |
+
+> **Keyboard note:** `Numpad` means the separate numeric keypad, not the number row above the letters. Laptop users may need to enable Num Lock, use an embedded keypad shortcut, or remap these controls in `GTBikeVConfig.ini`.
 
 ## Troubleshooting
 
