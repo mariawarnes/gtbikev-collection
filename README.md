@@ -234,3 +234,8 @@ Steam updates and file verification can replace the downgraded executable and mo
 
 ### [Activity Ghosts by oldnapalm](https://github.com/oldnapalm/ActivityGhosts)
 **Purpose**: Gives you a physical manifestation of your previous best time to chase to push you for a PB.
+
+### [Tour de France Pack by GTA Belgium](https://www.gta5-mods.com/player/tour-de-france-pack)
+**Purpose**: Gives you Tour de France outfits.
+
+
