@@ -22,6 +22,10 @@ A collection of mods and tutorials to enhance your GTBike V experience.
   - [100% Game Save](#100-game-save-by-direzephyr)
   - [Straight To Story Mode](#straight-to-story-mode-by-chiheb-bacha)
   - [Activity Ghosts](#activity-ghosts-by-oldnapalm)
+  - [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods)
+  - [VisualV](#visualv)
+  - [Real Road Bike Pack](#real-road-bike-pack)
+  - [Dynamic Population Density](#dynamic-population-density)
   - [Tour de France Pack](#tour-de-france-pack-by-gta-belgium)
 
 ## Install GTBike V
@@ -325,6 +329,82 @@ OneDrive\Documents\Rockstar Games\GTA V\Activities
 
 The normal GTBikeV installation already supplies its other requirements. To remove Activity Ghosts, close GTA V and delete `ActivityGhosts.dll`, `ActivityGhosts.ini`, and `LiteDB.dll` from `Scripts`.
 
+### Prepare OpenIV for cosmetic mods
+
+VisualV, Real Road Bike Pack, and Tour de France Pack use [OpenIV](https://openiv.com/) to place replacement files safely in a separate `mods` folder. Complete this setup once before installing any of those three mods:
+
+1. Download and install OpenIV.
+2. Start OpenIV, choose **Grand Theft Auto V → Windows**, and select the GTA V Legacy folder if it is not detected automatically.
+3. Open **Tools → ASI Manager**.
+4. Install **OpenIV.asi**. If ASI Loader is already shown as installed, leave it as it is because the GTBikeV installer supplied `dinput8.dll`.
+5. Enable **Edit mode**.
+6. Allow OpenIV to create the `mods` folder when prompted. Always modify the copies inside `mods`, not the original game archives.
+
+### [VisualV](https://www.gta5-mods.com/misc/visualv)
+
+**Purpose**: Improves GTA V's weather, lighting, colours, fog, shadows, and other visual effects.
+
+VisualV is expected to work with GTBikeV because it changes graphics rather than cycling controls or scripts. Download the **Legacy** release, not the Enhanced release. Start with the base VisualV package; its optional ReShade and ENB presets add more rendering changes and are not required.
+
+1. Complete [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods) above.
+2. Download the GTA V **Legacy** version of VisualV from the linked page and open the archive.
+3. In OpenIV, select **Tools → Package Installer**.
+4. Select `VisualV.oiv` from the downloaded archive.
+5. Choose **Install to "mods" folder** and complete the installation.
+6. Close OpenIV.
+
+Avoid combining VisualV's optional advanced motion-blur script with NaturalVision Evolved or NaturalVision Remastered scripts. To remove VisualV, use the uninstaller included with its download if available, or restore the affected archive copies in OpenIV's `mods` folder without deleting unrelated mods.
+
+### [Real Road Bike Pack](https://www.gta5-mods.com/paintjobs/real-road-bike-pack)
+
+**Purpose**: Replaces the textures of GTA V's three standard road/triathlon bikes with real-world-style designs.
+
+This pack is expected to work with GTBikeV because it only replaces textures on the standard `tribike`, `tribike2`, and `tribike3` models. Do not combine it with another texture pack that replaces the same files: the last files installed will overwrite the earlier ones.
+
+1. Complete [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods) above.
+2. Download and open the Real Road Bike Pack archive.
+3. In OpenIV, navigate to:
+
+   ```text
+   mods\x64e.rpf\levels\gta5\vehicles.rpf
+   ```
+
+4. If `x64e.rpf` is not yet in `mods`, let OpenIV copy it there before making changes.
+5. Back up the existing versions of these six files:
+
+   ```text
+   tribike.ytd
+   tribike+hi.ytd
+   tribike2.ytd
+   tribike2+hi.ytd
+   tribike3.ytd
+   tribike3+hi.ytd
+   ```
+
+6. With **Edit mode** enabled, replace those files with the matching files from the downloaded pack.
+7. Close OpenIV.
+
+To remove the pack, restore the six backed-up files at the same path. Do not remove the whole modified `x64e.rpf` if another mod also uses it.
+
+### [Dynamic Population Density](https://www.gta5-mods.com/scripts/dynamic-population-density)
+
+**Purpose**: Changes pedestrian and traffic density automatically according to the in-game time of day.
+
+The mod supports GTA V Legacy and is expected to work alongside GTBikeV. However, denser traffic and crowds can reduce performance and make cycling or autopilot routes more hazardous, so begin with its default settings and lower the values if necessary.
+
+1. Download and open the Dynamic Population Density archive.
+2. Copy these two files into the GTA V game root beside `GTA5.exe`:
+
+   ```text
+   Dynamic Population Density.asi
+   Dynamic Population Density.ini
+   ```
+
+3. Open `Dynamic Population Density.ini` in a text editor to adjust the traffic and pedestrian values for each time period, or leave its defaults unchanged.
+4. Save the INI. The ASI loader installed with GTBikeV will load the mod automatically when Story Mode starts.
+
+To remove the mod, close GTA V and delete both files from the game root. Avoid adding separate traffic-density or game-configuration mods at the same time unless you know they are compatible, because their changes can overlap and make the downgraded Legacy setup less stable.
+
 ### [Tour de France Pack by GTA Belgium](https://www.gta5-mods.com/player/tour-de-france-pack)
 **Purpose**: Gives you Tour de France outfits.
 
@@ -334,18 +414,13 @@ The pack contains yellow Tour de France outfits for Franklin and Michael. These 
 
 #### Install the outfits
 
-1. Download and install [OpenIV](https://openiv.com/).
-2. Start OpenIV, choose **Grand Theft Auto V → Windows**, and select the GTA V Legacy folder if it is not detected automatically.
-3. Open **Tools → ASI Manager**.
-4. Install **OpenIV.asi**. If ASI Loader is already shown as installed, leave it as it is because the GTBikeV installer supplied `dinput8.dll`.
-5. Enable **Edit mode** in OpenIV.
-6. If OpenIV offers to create or use a `mods` folder, accept it. Make changes in `mods`, not in the original game archives.
-7. Download and open the Tour de France Pack archive.
-8. Open its `files` folder. It contains separate `Franklin`, `Michael`, and Audi folders, so you can choose which parts to install.
-9. Open the text file supplied inside the `Franklin` folder and navigate to that exact archive path in OpenIV.
-10. Use OpenIV to replace the listed Triathlon outfit files with the matching Franklin files from the pack.
-11. Repeat the process using the path text file and replacement files in the `Michael` folder.
-12. Close OpenIV after all replacements finish.
+1. Complete [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods) above.
+2. Download and open the Tour de France Pack archive.
+3. Open its `files` folder. It contains separate `Franklin`, `Michael`, and Audi folders, so you can choose which parts to install.
+4. Open the text file supplied inside the `Franklin` folder and navigate to that exact archive path in OpenIV.
+5. Use OpenIV to replace the listed Triathlon outfit files with the matching Franklin files from the pack.
+6. Repeat the process using the path text file and replacement files in the `Michael` folder.
+7. Close OpenIV after all replacements finish.
 
 The Tour de France clothing will appear when Franklin or Michael equips the Triathlon outfit that the pack replaced.
 
