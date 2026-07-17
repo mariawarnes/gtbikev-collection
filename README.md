@@ -23,14 +23,16 @@ A list of mods and some tutorials to enhance your GTBike V experience.
   - [Strava Upload Helper](#strava-upload-helper)
 - [Compatibility and Known Conflicts](#compatibility-and-known-conflicts)
 - [Recommended Extra Mods](#recommended-extra-mods)
-  - [100% Game Save](#100-game-save-by-direzephyr)
-  - [Straight To Story Mode](#straight-to-story-mode-by-chiheb-bacha)
-  - [Activity Ghosts](#activity-ghosts-by-oldnapalm)
-  - [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods)
-  - [VisualV](#visualv)
-  - [Real Road Bike Pack](#real-road-bike-pack)
-  - [Dynamic Population Density](#dynamic-population-density)
-  - [Tour de France Pack](#tour-de-france-pack-by-gta-belgium)
+  - [Script and gameplay extras](#script-and-gameplay-extras)
+    - [100% Game Save](#100-game-save-by-direzephyr)
+    - [Straight To Story Mode](#straight-to-story-mode-by-chiheb-bacha)
+    - [Activity Ghosts](#activity-ghosts-by-oldnapalm)
+    - [Dynamic Population Density](#dynamic-population-density)
+  - [OpenIV and visual mods](#openiv-and-visual-mods)
+    - [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods)
+    - [VisualV](#visualv)
+    - [Real Road Bike Pack](#real-road-bike-pack)
+    - [Tour de France Pack](#tour-de-france-pack-by-gta-belgium)
 
 ## Install GTBike V
 
@@ -427,7 +429,11 @@ When adding anything not listed here, install one mod at a time. If GTBikeV stop
 
 Install these only after the main GTBikeV setup is complete. Close GTA V and Rockstar Games Launcher before copying or replacing files. Each mod is independent, so you can install only the ones you want.
 
-### [100% Game Save by DireZephyr](https://www.gta5-mods.com/misc/100-save-game)
+### Script and gameplay extras
+
+These additions use save files, ASI plugins, or ScriptHookVDotNet scripts. They do not require OpenIV.
+
+#### [100% Game Save by DireZephyr](https://www.gta5-mods.com/misc/100-save-game)
 **Purpose**: Unlocks all the outfit choices for all characters.
 
 > **Warning:** A downloaded save can replace one of your Story Mode save slots. Back up your entire profile folder before copying it.
@@ -460,7 +466,7 @@ Install these only after the main GTBikeV setup is complete. Close GTA V and Roc
 9. Launch GTA V and enter Story Mode.
 10. If the save does not load automatically, open the pause menu and select **Game → Load Game**, then choose the new save slot.
 
-### [Straight To Story Mode by Chiheb-Bacha](https://www.gta5-mods.com/scripts/straight-to-story-mode)
+#### [Straight To Story Mode by Chiheb-Bacha](https://www.gta5-mods.com/scripts/straight-to-story-mode)
 **Purpose**: Makes getting into the game quicker.
 
 This ASI plugin skips the legal and splash screens and takes GTA V Legacy directly to Story Mode. The GTBikeV installer has already supplied the required ScriptHookV and ASI loader.
@@ -478,7 +484,7 @@ Grand Theft Auto V\StraightToStoryMode.asi
 
 To remove the mod, close GTA V and delete `StraightToStoryMode.asi`. If it does not load, confirm `dinput8.dll` is still in the game root and check `StraightToStoryMode.log` and `asiloader.log` for errors.
 
-### [Activity Ghosts by oldnapalm](https://github.com/oldnapalm/ActivityGhosts)
+#### [Activity Ghosts by oldnapalm](https://github.com/oldnapalm/ActivityGhosts)
 **Purpose**: Gives you a physical manifestation of your previous best time to chase to push you for a PB.
 
 1. Open the [latest Activity Ghosts release](https://github.com/oldnapalm/ActivityGhosts/releases/latest) and download its release archive.
@@ -514,7 +520,30 @@ OneDrive\Documents\Rockstar Games\GTA V\Activities
 
 The normal GTBikeV installation already supplies its other requirements. To remove Activity Ghosts, close GTA V and delete `ActivityGhosts.dll`, `ActivityGhosts.ini`, and `LiteDB.dll` from `Scripts`.
 
-### Prepare OpenIV for cosmetic mods
+#### [Dynamic Population Density](https://www.gta5-mods.com/scripts/dynamic-population-density)
+
+**Purpose**: Changes pedestrian and traffic density automatically according to the in-game time of day.
+
+The mod supports GTA V Legacy and is expected to work alongside GTBikeV. However, denser traffic and crowds can reduce performance and make cycling or autopilot routes more hazardous, so begin with its default settings and lower the values if necessary.
+
+1. Download and open the Dynamic Population Density archive.
+2. Copy these two files into the GTA V game root beside `GTA5.exe`:
+
+   ```text
+   Dynamic Population Density.asi
+   Dynamic Population Density.ini
+   ```
+
+3. Open `Dynamic Population Density.ini` in a text editor to adjust the traffic and pedestrian values for each time period, or leave its defaults unchanged.
+4. Save the INI. The ASI loader installed with GTBikeV will load the mod automatically when Story Mode starts.
+
+To remove the mod, close GTA V and delete both files from the game root. Avoid adding separate traffic-density or game-configuration mods at the same time unless you know they are compatible, because their changes can overlap and make the downgraded Legacy setup less stable.
+
+### OpenIV and visual mods
+
+The following cosmetic mods all use OpenIV. Prepare OpenIV once, then install any of the related visual, bicycle-texture, or clothing mods listed immediately afterward.
+
+#### Prepare OpenIV for cosmetic mods
 
 VisualV, Real Road Bike Pack, and Tour de France Pack use [OpenIV](https://openiv.com/) to place replacement files safely in a separate `mods` folder. Complete this setup once before installing any of those three mods:
 
@@ -525,7 +554,7 @@ VisualV, Real Road Bike Pack, and Tour de France Pack use [OpenIV](https://openi
 5. Enable **Edit mode**.
 6. Allow OpenIV to create the `mods` folder when prompted. Always modify the copies inside `mods`, not the original game archives.
 
-### [VisualV](https://www.gta5-mods.com/misc/visualv)
+#### [VisualV](https://www.gta5-mods.com/misc/visualv)
 
 **Purpose**: Improves GTA V's weather, lighting, colours, fog, shadows, and other visual effects.
 
@@ -540,7 +569,7 @@ VisualV is expected to work with GTBikeV because it changes graphics rather than
 
 Avoid combining VisualV's optional advanced motion-blur script with NaturalVision Evolved or NaturalVision Remastered scripts. To remove VisualV, use the uninstaller included with its download if available, or restore the affected archive copies in OpenIV's `mods` folder without deleting unrelated mods.
 
-### [Real Road Bike Pack](https://www.gta5-mods.com/paintjobs/real-road-bike-pack)
+#### [Real Road Bike Pack](https://www.gta5-mods.com/paintjobs/real-road-bike-pack)
 
 **Purpose**: Replaces the textures of GTA V's three standard road/triathlon bikes with real-world-style designs.
 
@@ -571,33 +600,14 @@ This pack is expected to work with GTBikeV because it only replaces textures on 
 
 To remove the pack, restore the six backed-up files at the same path. Do not remove the whole modified `x64e.rpf` if another mod also uses it.
 
-### [Dynamic Population Density](https://www.gta5-mods.com/scripts/dynamic-population-density)
-
-**Purpose**: Changes pedestrian and traffic density automatically according to the in-game time of day.
-
-The mod supports GTA V Legacy and is expected to work alongside GTBikeV. However, denser traffic and crowds can reduce performance and make cycling or autopilot routes more hazardous, so begin with its default settings and lower the values if necessary.
-
-1. Download and open the Dynamic Population Density archive.
-2. Copy these two files into the GTA V game root beside `GTA5.exe`:
-
-   ```text
-   Dynamic Population Density.asi
-   Dynamic Population Density.ini
-   ```
-
-3. Open `Dynamic Population Density.ini` in a text editor to adjust the traffic and pedestrian values for each time period, or leave its defaults unchanged.
-4. Save the INI. The ASI loader installed with GTBikeV will load the mod automatically when Story Mode starts.
-
-To remove the mod, close GTA V and delete both files from the game root. Avoid adding separate traffic-density or game-configuration mods at the same time unless you know they are compatible, because their changes can overlap and make the downgraded Legacy setup less stable.
-
-### [Tour de France Pack by GTA Belgium](https://www.gta5-mods.com/player/tour-de-france-pack)
+#### [Tour de France Pack by GTA Belgium](https://www.gta5-mods.com/player/tour-de-france-pack)
 **Purpose**: Gives you Tour de France outfits.
 
 > **OpenIV modification:** This pack replaces game clothing files. Back up the affected files and use OpenIV's `mods` folder rather than editing the original archives. Keep this optional modification out of the initial GTBikeV installation.
 
 The pack contains yellow Tour de France outfits for Franklin and Michael. These replace their existing Triathlon outfits. It also contains an optional paintjob for a separate Audi RS4 mod; the car is not required for the cycling outfits.
 
-#### Install the outfits
+##### Install the outfits
 
 1. Complete [Prepare OpenIV for cosmetic mods](#prepare-openiv-for-cosmetic-mods) above.
 2. Download and open the Tour de France Pack archive.
@@ -609,7 +619,7 @@ The pack contains yellow Tour de France outfits for Franklin and Michael. These 
 
 The Tour de France clothing will appear when Franklin or Michael equips the Triathlon outfit that the pack replaced.
 
-#### Optional Audi paintjob
+##### Optional Audi paintjob
 
 1. First install Dreamsky's [2013 Audi RS4 Avant](https://www.gta5-mods.com/vehicles/2013-audi-rs4-avant) by following that mod's instructions.
 2. In OpenIV, open the installed car's `stratum.ytd` and `stratum+hi.ytd` texture dictionaries.
